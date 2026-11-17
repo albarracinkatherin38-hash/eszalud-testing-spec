@@ -2,33 +2,40 @@ package pe.saludpublica.model;
 
 /**
  * Modelo que representa a un paciente.
- *
- * <p>Esqueleto inicial para que la prueba compile y falle por la razón
- * esperada durante la fase RED. La implementación se completa en GREEN.</p>
  */
 public class Paciente {
 
+    private String documento;
+    private String nombres;
+    private String apellidos;
+    private String telefono;
+    private String correo;
+
     public Paciente(String documento, String nombres, String apellidos, String telefono, String correo) {
-        // Implementación pendiente (fase RED)
+        this.documento = documento;
+        this.nombres = nombres;
+        this.apellidos = apellidos;
+        this.telefono = telefono;
+        this.correo = correo;
     }
 
     public String getDocumento() {
-        return null;
+        return documento;
     }
 
     public String getNombres() {
-        return null;
+        return nombres;
     }
 
     public String getApellidos() {
-        return null;
+        return apellidos;
     }
 
     public String getTelefono() {
-        return null;
+        return telefono;
     }
 
     public String getCorreo() {
-        return null;
+        return correo;
     }
 }
