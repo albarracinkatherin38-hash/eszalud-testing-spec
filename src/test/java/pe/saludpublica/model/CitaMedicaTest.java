@@ -149,4 +149,98 @@ class CitaMedicaTest {
 
         assertEquals(EstadoCita.PROGRAMADA, cita.getEstado());
     }
+
+    @Test
+    @DisplayName("CIT-009: Aceptar un motivo vacío")
+    void shouldAcceptAppointmentWithEmptyReason() {
+        CitaMedica cita = new CitaMedica(
+                "PAC-005",
+                "DOC-005",
+                "ESP-005",
+                LocalDateTime.of(2026, 12, 5, 8, 0),
+                "",
+                EstadoCita.PROGRAMADA
+        );
+
+        assertNotNull(cita);
+        assertEquals("", cita.getMotivo());
+    }
+
+    @Test
+    @DisplayName("CIT-016: Aceptar un motivo compuesto solo por espacios")
+    void shouldAcceptAppointmentWithBlankReason() {
+        CitaMedica cita = new CitaMedica(
+                "PAC-005",
+                "DOC-005",
+                "ESP-005",
+                LocalDateTime.of(2026, 12, 5, 8, 0),
+                "   ",
+                EstadoCita.PROGRAMADA
+        );
+
+        assertNotNull(cita);
+        assertEquals("   ", cita.getMotivo());
+    }
+
+    @Test
+    @DisplayName("CIT-011: Aceptar una fecha pasada")
+    void shouldAcceptAppointmentWithPastDate() {
+        LocalDateTime fechaPasada = LocalDateTime.of(2020, 1, 15, 9, 0);
+
+        CitaMedica cita = new CitaMedica(
+                "PAC-006",
+                "DOC-006",
+                "ESP-006",
+                fechaPasada,
+                "Consulta histórica",
+                EstadoCita.ATENDIDA
+        );
+
+        assertEquals(fechaPasada, cita.getFechaHora());
+    }
+
+    @Test
+    @DisplayName("CIT-012: Conservar el estado PROGRAMADA")
+    void shouldKeepProgrammedStatus() {
+        CitaMedica cita = new CitaMedica(
+                "PAC-007",
+                "DOC-007",
+                "ESP-007",
+                LocalDateTime.of(2026, 12, 6, 10, 0),
+                "Control",
+                EstadoCita.PROGRAMADA
+        );
+
+        assertEquals(EstadoCita.PROGRAMADA, cita.getEstado());
+    }
+
+    @Test
+    @DisplayName("CIT-013: Conservar el estado ATENDIDA")
+    void shouldKeepAttendedStatus() {
+        CitaMedica cita = new CitaMedica(
+                "PAC-008",
+                "DOC-008",
+                "ESP-008",
+                LocalDateTime.of(2026, 12, 7, 10, 0),
+                "Control",
+                EstadoCita.ATENDIDA
+        );
+
+        assertEquals(EstadoCita.ATENDIDA, cita.getEstado());
+    }
+
+    @Test
+    @DisplayName("CIT-014: Conservar el estado CANCELADA")
+    void shouldKeepCancelledStatus() {
+        CitaMedica cita = new CitaMedica(
+                "PAC-009",
+                "DOC-009",
+                "ESP-009",
+                LocalDateTime.of(2026, 12, 8, 10, 0),
+                "Control",
+                EstadoCita.CANCELADA
+        );
+
+        assertEquals(EstadoCita.CANCELADA, cita.getEstado());
+    }
 }

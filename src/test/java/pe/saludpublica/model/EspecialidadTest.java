@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class EspecialidadTest {
@@ -59,5 +60,23 @@ class EspecialidadTest {
                 IllegalArgumentException.class,
                 () -> new Especialidad("   ", "Especialidad sin nombre")
         );
+    }
+
+    @Test
+    @DisplayName("ESP-006: Aceptar una descripción vacía")
+    void shouldAcceptSpecialtyWithEmptyDescription() {
+        Especialidad especialidad = new Especialidad("Cardiología", "");
+
+        assertNotNull(especialidad);
+        assertEquals("", especialidad.getDescripcion());
+    }
+
+    @Test
+    @DisplayName("ESP-007: Aceptar una descripción nula")
+    void shouldAcceptSpecialtyWithNullDescription() {
+        Especialidad especialidad = new Especialidad("Cardiología", null);
+
+        assertNotNull(especialidad);
+        assertNull(especialidad.getDescripcion());
     }
 }

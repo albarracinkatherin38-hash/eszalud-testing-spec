@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class PacienteTest {
@@ -107,5 +108,14 @@ class PacienteTest {
                 IllegalArgumentException.class,
                 () -> new Paciente("12345678", "Ana", "", "987654321", "ana@mail.com")
         );
+    }
+
+    @Test
+    @DisplayName("PAC-012: Aceptar un correo opcional con valor nulo")
+    void shouldAcceptPatientWithNullEmail() {
+        Paciente paciente = new Paciente("12345678", "Ana", "Pérez", "987654321", null);
+
+        assertNotNull(paciente);
+        assertNull(paciente.getCorreo());
     }
 }

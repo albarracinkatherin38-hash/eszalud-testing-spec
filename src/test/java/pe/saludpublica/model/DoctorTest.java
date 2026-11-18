@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class DoctorTest {
@@ -116,5 +117,23 @@ class DoctorTest {
                 IllegalArgumentException.class,
                 () -> new Doctor("44556677", "Carlos", "Ramos", "", "ESP-001")
         );
+    }
+
+    @Test
+    @DisplayName("DOC-011: Aceptar un identificador de especialidad vacío")
+    void shouldAcceptDoctorWithEmptySpecialty() {
+        Doctor doctor = new Doctor("44556677", "Carlos", "Ramos", "CMP-12345", "");
+
+        assertNotNull(doctor);
+        assertEquals("", doctor.getEspecialidad());
+    }
+
+    @Test
+    @DisplayName("DOC-012: Aceptar un identificador de especialidad nulo")
+    void shouldAcceptDoctorWithNullSpecialty() {
+        Doctor doctor = new Doctor("44556677", "Carlos", "Ramos", "CMP-12345", null);
+
+        assertNotNull(doctor);
+        assertNull(doctor.getEspecialidad());
     }
 }
