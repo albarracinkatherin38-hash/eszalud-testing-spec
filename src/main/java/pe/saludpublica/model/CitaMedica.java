@@ -4,38 +4,47 @@ import java.time.LocalDateTime;
 
 /**
  * Modelo que representa una cita médica.
- *
- * <p>Esqueleto inicial para que la prueba compile y falle por la razón
- * esperada durante la fase RED. La implementación se completa en GREEN.</p>
  */
 public class CitaMedica {
 
+    private String paciente;
+    private String doctor;
+    private String especialidad;
+    private LocalDateTime fechaHora;
+    private String motivo;
+    private EstadoCita estado;
+
     public CitaMedica(String paciente, String doctor, String especialidad,
                       LocalDateTime fechaHora, String motivo, EstadoCita estado) {
-        // Implementación pendiente (fase RED)
+        this.paciente = paciente;
+        this.doctor = doctor;
+        this.especialidad = especialidad;
+        this.fechaHora = fechaHora;
+        this.motivo = motivo;
+        this.estado = estado;
     }
 
     public String getPaciente() {
-        return null;
+        return paciente;
     }
 
     public String getDoctor() {
-        return null;
+        return doctor;
     }
 
     public String getEspecialidad() {
-        return null;
+        return especialidad;
     }
 
     public LocalDateTime getFechaHora() {
-        return null;
+        return fechaHora;
     }
 
     public String getMotivo() {
-        return null;
+        return motivo;
     }
 
     public EstadoCita getEstado() {
-        return null;
+        return estado;
     }
 }
