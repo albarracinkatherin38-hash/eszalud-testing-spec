@@ -7,12 +7,12 @@ import java.time.LocalDateTime;
  */
 public class CitaMedica {
 
-    private String paciente;
-    private String doctor;
-    private String especialidad;
-    private LocalDateTime fechaHora;
-    private String motivo;
-    private EstadoCita estado;
+    private final String paciente;
+    private final String doctor;
+    private final String especialidad;
+    private final LocalDateTime fechaHora;
+    private final String motivo;
+    private final EstadoCita estado;
 
     public CitaMedica(String paciente, String doctor, String especialidad,
                       LocalDateTime fechaHora, String motivo, EstadoCita estado) {
