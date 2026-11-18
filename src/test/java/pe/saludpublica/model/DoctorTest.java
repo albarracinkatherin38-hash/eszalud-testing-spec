@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class DoctorTest {
 
@@ -43,5 +44,41 @@ class DoctorTest {
         assertEquals("Torres", doctor.getApellidos());
         assertEquals("CMP-67890", doctor.getColegiatura());
         assertEquals("ESP-002", doctor.getEspecialidad());
+    }
+
+    @Test
+    @DisplayName("DOC-002: Rechazar la creación de un doctor sin documento")
+    void shouldRejectDoctorWithoutDocument() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Doctor(null, "Carlos", "Ramos", "CMP-12345", "ESP-001")
+        );
+    }
+
+    @Test
+    @DisplayName("DOC-003: Rechazar la creación de un doctor sin nombres")
+    void shouldRejectDoctorWithoutNames() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Doctor("44556677", null, "Ramos", "CMP-12345", "ESP-001")
+        );
+    }
+
+    @Test
+    @DisplayName("DOC-004: Rechazar la creación de un doctor sin apellidos")
+    void shouldRejectDoctorWithoutLastNames() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Doctor("44556677", "Carlos", null, "CMP-12345", "ESP-001")
+        );
+    }
+
+    @Test
+    @DisplayName("DOC-005: Rechazar la creación de un doctor sin colegiatura")
+    void shouldRejectDoctorWithoutLicense() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Doctor("44556677", "Carlos", "Ramos", null, "ESP-001")
+        );
     }
 }
