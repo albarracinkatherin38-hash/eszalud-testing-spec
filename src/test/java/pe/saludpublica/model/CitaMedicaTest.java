@@ -235,4 +235,20 @@ class CitaMedicaTest {
 
         assertEquals(EstadoCita.CANCELADA, cita.getEstado());
     }
+
+    @Test
+    @DisplayName("CIT-010: Rechazar una fecha y hora con formato inválido")
+    void shouldRejectAppointmentWithInvalidDateTimeFormat() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new CitaMedica(
+                        "PAC-010",
+                        "DOC-010",
+                        "ESP-010",
+                        "01/12/2026 10:30",
+                        "Consulta de control",
+                        EstadoCita.PROGRAMADA
+                )
+        );
+    }
 }
