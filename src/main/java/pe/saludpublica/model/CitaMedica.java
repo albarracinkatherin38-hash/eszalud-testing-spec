@@ -25,7 +25,7 @@ public class CitaMedica {
         requireNotNull(doctor, "El doctor es obligatorio");
         requireNotNull(especialidad, "La especialidad es obligatoria");
         requireText(fechaHora, "La fecha y hora son obligatorias");
-        requireValidFormat(fechaHora);
+        requireValidFechaHora(fechaHora);
 
         this.paciente = paciente;
         this.doctor = doctor;
@@ -51,17 +51,20 @@ public class CitaMedica {
         }
     }
 
-    private static void requireValidFormat(String value) {
-        LocalDateTime fecha;
-        try {
-            fecha = LocalDateTime.parse(value, FORMATO_FECHA_HORA);
-        } catch (DateTimeParseException e) {
-            throw new IllegalArgumentException(
-                    "La fecha debe tener el formato yyyy-MM-dd HH:mm");
-        }
+    private static void requireValidFechaHora(String value) {
+        LocalDateTime fecha = parseFechaHora(value);
         if (fecha.isBefore(LocalDateTime.now())) {
             throw new IllegalArgumentException(
                     "No se pueden agendar citas en fechas pasadas");
+        }
+    }
+
+    private static LocalDateTime parseFechaHora(String value) {
+        try {
+            return LocalDateTime.parse(value, FORMATO_FECHA_HORA);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException(
+                    "La fecha debe tener el formato yyyy-MM-dd HH:mm");
         }
     }
 
