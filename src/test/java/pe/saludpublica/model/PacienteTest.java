@@ -118,4 +118,21 @@ class PacienteTest {
         assertNotNull(paciente);
         assertNull(paciente.getCorreo());
     }
+
+    @Test
+    @DisplayName("GEN-003: Dos pacientes con datos distintos conservan su información")
+    void shouldKeepIndependentDataForTwoPatients() {
+        Paciente primero = new Paciente(
+                "12345678", "Ana", "Pérez", "987654321", "ana@mail.com");
+        Paciente segundo = new Paciente(
+                "87654321", "Luis", "Gómez", "912345678", "luis@mail.com");
+
+        assertEquals("12345678", primero.getDocumento());
+        assertEquals("Ana", primero.getNombres());
+        assertEquals("ana@mail.com", primero.getCorreo());
+
+        assertEquals("87654321", segundo.getDocumento());
+        assertEquals("Luis", segundo.getNombres());
+        assertEquals("luis@mail.com", segundo.getCorreo());
+    }
 }
