@@ -1,9 +1,16 @@
 package pe.saludpublica.model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 /**
  * Modelo que representa una cita médica.
  */
 public class CitaMedica {
+
+    private static final DateTimeFormatter FORMATO_FECHA_HORA =
+            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     private final String paciente;
     private final String doctor;
@@ -18,6 +25,7 @@ public class CitaMedica {
         requireNotNull(doctor, "El doctor es obligatorio");
         requireNotNull(especialidad, "La especialidad es obligatoria");
         requireText(fechaHora, "La fecha y hora son obligatorias");
+        requireValidFormat(fechaHora);
 
         this.paciente = paciente;
         this.doctor = doctor;
@@ -40,6 +48,15 @@ public class CitaMedica {
     private static void requireText(String value, String message) {
         if (value == null || value.isBlank()) {
             throw new IllegalArgumentException(message);
+        }
+    }
+
+    private static void requireValidFormat(String value) {
+        try {
+            LocalDateTime.parse(value, FORMATO_FECHA_HORA);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException(
+                    "La fecha debe tener el formato yyyy-MM-dd HH:mm");
         }
     }
 
