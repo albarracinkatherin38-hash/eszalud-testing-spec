@@ -8,11 +8,14 @@ de acuerdo con la sección 8 de la Especificación Formal de Pruebas Unitarias (
 - Las referencias a paciente, doctor y especialidad se representan mediante `String`.
 - En `CitaMedica`, los campos `paciente`, `doctor` y `especialidad` son obligatorios
   y no pueden ser `null`.
+- Estos identificadores se validan únicamente contra `null`, porque representan
+  referencias a otros registros y la EFP no exige validar su contenido.
 
 ## 2. Campos obligatorios
 
-Se rechaza la creación del objeto con `IllegalArgumentException` cuando el campo
-obligatorio correspondiente es `null`.
+Se rechaza la creación del objeto con `IllegalArgumentException` cuando un campo
+obligatorio de texto es `null`, una cadena vacía (`""`) o una cadena compuesta
+únicamente por espacios.
 
 | Modelo | Campos obligatorios |
 |---|---|
@@ -21,9 +24,11 @@ obligatorio correspondiente es `null`.
 | `Especialidad` | `nombre` |
 | `CitaMedica` | `paciente`, `doctor`, `especialidad`, `fechaHora` |
 
+En `CitaMedica`, `fechaHora` es de tipo `LocalDateTime` y solo se valida contra `null`.
+
 ## 3. Campos opcionales
 
-Los siguientes campos son opcionales y aceptan `null`:
+Los siguientes campos son opcionales y aceptan `null` y cadena vacía:
 
 | Modelo | Campos opcionales |
 |---|---|
@@ -57,7 +62,21 @@ porque la EFP no define una regla de negocio que los justifique.
 
 ## 7. Pruebas adicionales
 
-La sección 7 de la EFP propone pruebas adicionales (documento vacío, cadenas con
-solo espacios, formatos de correo, etc.). No forman parte del mínimo obligatorio
-y no se implementan en esta versión. Si se incorporan posteriormente, este documento
-deberá actualizarse con las reglas correspondientes.
+Se implementaron las pruebas recomendadas de la sección 7 de la EFP que son
+compatibles con las decisiones anteriores:
+
+| Modelo | Pruebas implementadas |
+|---|---|
+| `Paciente` | PAC-006 a PAC-009 (documento, nombres y apellidos vacíos o con espacios) y PAC-012 (correo `null` aceptado) |
+| `Doctor` | DOC-007 a DOC-009 (campos obligatorios vacíos) y DOC-011, DOC-012 (especialidad vacía o `null` aceptada por ser opcional) |
+| `Especialidad` | ESP-004, ESP-005 (nombre vacío o con espacios) y ESP-006, ESP-007 (descripción vacía o `null` aceptada) |
+| `CitaMedica` | CIT-009, CIT-016 (motivo vacío o con espacios aceptado), CIT-011 (fecha pasada aceptada) y CIT-012 a CIT-014 (estados válidos) |
+
+Las siguientes pruebas recomendadas no aplican a esta versión:
+
+| Prueba | Motivo |
+|---|---|
+| PAC-010, PAC-011 | No se valida el formato de correo ni de teléfono. |
+| DOC-010 | No se valida el formato de la colegiatura. |
+| CIT-010 | `LocalDateTime` impide representar una fecha y hora inválida. |
+| CIT-015 | El enum `EstadoCita` impide representar un estado no reconocido. |
