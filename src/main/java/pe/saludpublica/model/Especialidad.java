@@ -2,21 +2,22 @@ package pe.saludpublica.model;
 
 /**
  * Modelo que representa una especialidad médica.
- *
- * <p>Esqueleto inicial para que la prueba compile y falle por la razón
- * esperada durante la fase RED. La implementación se completa en GREEN.</p>
  */
 public class Especialidad {
 
+    private String nombre;
+    private String descripcion;
+
     public Especialidad(String nombre, String descripcion) {
-        // Implementación pendiente (fase RED)
+        this.nombre = nombre;
+        this.descripcion = descripcion;
     }
 
     public String getNombre() {
-        return null;
+        return nombre;
     }
 
     public String getDescripcion() {
-        return null;
+        return descripcion;
     }
 }
