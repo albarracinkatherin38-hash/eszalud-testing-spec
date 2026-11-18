@@ -12,9 +12,9 @@ public class Paciente {
     private final String correo;
 
     public Paciente(String documento, String nombres, String apellidos, String telefono, String correo) {
-        requireNotNull(documento, "El documento es obligatorio");
-        requireNotNull(nombres, "Los nombres son obligatorios");
-        requireNotNull(apellidos, "Los apellidos son obligatorios");
+        requireText(documento, "El documento es obligatorio");
+        requireText(nombres, "Los nombres son obligatorios");
+        requireText(apellidos, "Los apellidos son obligatorios");
 
         this.documento = documento;
         this.nombres = nombres;
@@ -23,8 +23,8 @@ public class Paciente {
         this.correo = correo;
     }
 
-    private static void requireNotNull(String value, String message) {
-        if (value == null) {
+    private static void requireText(String value, String message) {
+        if (value == null || value.isBlank()) {
             throw new IllegalArgumentException(message);
         }
     }
