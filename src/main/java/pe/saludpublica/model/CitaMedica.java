@@ -1,7 +1,5 @@
 package pe.saludpublica.model;
 
-import java.time.LocalDateTime;
-
 /**
  * Modelo que representa una cita médica.
  */
@@ -10,16 +8,16 @@ public class CitaMedica {
     private final String paciente;
     private final String doctor;
     private final String especialidad;
-    private final LocalDateTime fechaHora;
+    private final String fechaHora;
     private final String motivo;
     private final EstadoCita estado;
 
     public CitaMedica(String paciente, String doctor, String especialidad,
-                      LocalDateTime fechaHora, String motivo, EstadoCita estado) {
+                      String fechaHora, String motivo, EstadoCita estado) {
         requireNotNull(paciente, "El paciente es obligatorio");
         requireNotNull(doctor, "El doctor es obligatorio");
         requireNotNull(especialidad, "La especialidad es obligatoria");
-        requireNotNull(fechaHora, "La fecha y hora son obligatorias");
+        requireText(fechaHora, "La fecha y hora son obligatorias");
 
         this.paciente = paciente;
         this.doctor = doctor;
@@ -39,6 +37,12 @@ public class CitaMedica {
         }
     }
 
+    private static void requireText(String value, String message) {
+        if (value == null || value.isBlank()) {
+            throw new IllegalArgumentException(message);
+        }
+    }
+
     public String getPaciente() {
         return paciente;
     }
@@ -51,7 +55,7 @@ public class CitaMedica {
         return especialidad;
     }
 
-    public LocalDateTime getFechaHora() {
+    public String getFechaHora() {
         return fechaHora;
     }
 

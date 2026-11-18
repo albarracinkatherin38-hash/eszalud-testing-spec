@@ -3,8 +3,6 @@ package pe.saludpublica.model;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDateTime;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -14,13 +12,11 @@ class CitaMedicaTest {
     @Test
     @DisplayName("CIT-001: Crear una cita médica con datos válidos")
     void shouldCreateAppointmentWithValidData() {
-        LocalDateTime fechaHora = LocalDateTime.of(2026, 12, 1, 10, 30);
-
         CitaMedica cita = new CitaMedica(
                 "PAC-001",
                 "DOC-001",
                 "ESP-001",
-                fechaHora,
+                "2099-12-01 10:30",
                 "Consulta de control",
                 EstadoCita.PROGRAMADA
         );
@@ -29,7 +25,7 @@ class CitaMedicaTest {
         assertEquals("PAC-001", cita.getPaciente());
         assertEquals("DOC-001", cita.getDoctor());
         assertEquals("ESP-001", cita.getEspecialidad());
-        assertEquals(fechaHora, cita.getFechaHora());
+        assertEquals("2099-12-01 10:30", cita.getFechaHora());
         assertEquals("Consulta de control", cita.getMotivo());
         assertEquals(EstadoCita.PROGRAMADA, cita.getEstado());
     }
@@ -41,7 +37,7 @@ class CitaMedicaTest {
                 "PAC-002",
                 "DOC-002",
                 "ESP-002",
-                LocalDateTime.of(2026, 12, 2, 15, 0),
+                "2099-12-02 15:00",
                 "Dolor de cabeza",
                 EstadoCita.ATENDIDA
         );
@@ -52,13 +48,11 @@ class CitaMedicaTest {
     @Test
     @DisplayName("CIT-008: Verificar los atributos después de construir el objeto")
     void shouldReturnAppointmentAttributes() {
-        LocalDateTime fechaHora = LocalDateTime.of(2026, 12, 3, 9, 15);
-
         CitaMedica cita = new CitaMedica(
                 "PAC-003",
                 "DOC-003",
                 "ESP-003",
-                fechaHora,
+                "2099-12-03 09:15",
                 "Chequeo general",
                 EstadoCita.CANCELADA
         );
@@ -66,7 +60,7 @@ class CitaMedicaTest {
         assertEquals("PAC-003", cita.getPaciente());
         assertEquals("DOC-003", cita.getDoctor());
         assertEquals("ESP-003", cita.getEspecialidad());
-        assertEquals(fechaHora, cita.getFechaHora());
+        assertEquals("2099-12-03 09:15", cita.getFechaHora());
         assertEquals("Chequeo general", cita.getMotivo());
         assertEquals(EstadoCita.CANCELADA, cita.getEstado());
     }
@@ -80,7 +74,7 @@ class CitaMedicaTest {
                         null,
                         "DOC-001",
                         "ESP-001",
-                        LocalDateTime.of(2026, 12, 1, 10, 30),
+                        "2099-12-01 10:30",
                         "Consulta de control",
                         EstadoCita.PROGRAMADA
                 )
@@ -96,7 +90,7 @@ class CitaMedicaTest {
                         "PAC-001",
                         null,
                         "ESP-001",
-                        LocalDateTime.of(2026, 12, 1, 10, 30),
+                        "2099-12-01 10:30",
                         "Consulta de control",
                         EstadoCita.PROGRAMADA
                 )
@@ -112,7 +106,7 @@ class CitaMedicaTest {
                         "PAC-001",
                         "DOC-001",
                         null,
-                        LocalDateTime.of(2026, 12, 1, 10, 30),
+                        "2099-12-01 10:30",
                         "Consulta de control",
                         EstadoCita.PROGRAMADA
                 )
@@ -142,7 +136,7 @@ class CitaMedicaTest {
                 "PAC-004",
                 "DOC-004",
                 "ESP-004",
-                LocalDateTime.of(2026, 12, 4, 11, 0),
+                "2099-12-04 11:00",
                 "Control",
                 null
         );
@@ -157,7 +151,7 @@ class CitaMedicaTest {
                 "PAC-005",
                 "DOC-005",
                 "ESP-005",
-                LocalDateTime.of(2026, 12, 5, 8, 0),
+                "2099-12-05 08:00",
                 "",
                 EstadoCita.PROGRAMADA
         );
@@ -173,7 +167,7 @@ class CitaMedicaTest {
                 "PAC-005",
                 "DOC-005",
                 "ESP-005",
-                LocalDateTime.of(2026, 12, 5, 8, 0),
+                "2099-12-05 08:00",
                 "   ",
                 EstadoCita.PROGRAMADA
         );
@@ -185,18 +179,16 @@ class CitaMedicaTest {
     @Test
     @DisplayName("CIT-011: Aceptar una fecha pasada")
     void shouldAcceptAppointmentWithPastDate() {
-        LocalDateTime fechaPasada = LocalDateTime.of(2020, 1, 15, 9, 0);
-
         CitaMedica cita = new CitaMedica(
                 "PAC-006",
                 "DOC-006",
                 "ESP-006",
-                fechaPasada,
+                "2020-01-15 09:00",
                 "Consulta histórica",
                 EstadoCita.ATENDIDA
         );
 
-        assertEquals(fechaPasada, cita.getFechaHora());
+        assertEquals("2020-01-15 09:00", cita.getFechaHora());
     }
 
     @Test
@@ -206,7 +198,7 @@ class CitaMedicaTest {
                 "PAC-007",
                 "DOC-007",
                 "ESP-007",
-                LocalDateTime.of(2026, 12, 6, 10, 0),
+                "2099-12-06 10:00",
                 "Control",
                 EstadoCita.PROGRAMADA
         );
@@ -221,7 +213,7 @@ class CitaMedicaTest {
                 "PAC-008",
                 "DOC-008",
                 "ESP-008",
-                LocalDateTime.of(2026, 12, 7, 10, 0),
+                "2099-12-07 10:00",
                 "Control",
                 EstadoCita.ATENDIDA
         );
@@ -236,7 +228,7 @@ class CitaMedicaTest {
                 "PAC-009",
                 "DOC-009",
                 "ESP-009",
-                LocalDateTime.of(2026, 12, 8, 10, 0),
+                "2099-12-08 10:00",
                 "Control",
                 EstadoCita.CANCELADA
         );
