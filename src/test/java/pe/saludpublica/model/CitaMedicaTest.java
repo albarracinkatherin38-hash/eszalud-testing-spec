@@ -177,18 +177,19 @@ class CitaMedicaTest {
     }
 
     @Test
-    @DisplayName("CIT-011: Aceptar una fecha pasada")
-    void shouldAcceptAppointmentWithPastDate() {
-        CitaMedica cita = new CitaMedica(
-                "PAC-006",
-                "DOC-006",
-                "ESP-006",
-                "2020-01-15 09:00",
-                "Consulta histórica",
-                EstadoCita.ATENDIDA
+    @DisplayName("CIT-011: Rechazar una cita con fecha pasada")
+    void shouldRejectAppointmentWithPastDate() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new CitaMedica(
+                        "PAC-006",
+                        "DOC-006",
+                        "ESP-006",
+                        "2020-01-15 09:00",
+                        "Consulta histórica",
+                        EstadoCita.ATENDIDA
+                )
         );
-
-        assertEquals("2020-01-15 09:00", cita.getFechaHora());
     }
 
     @Test
