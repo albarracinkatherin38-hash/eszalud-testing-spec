@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CitaMedicaTest {
 
@@ -68,5 +69,69 @@ class CitaMedicaTest {
         assertEquals(fechaHora, cita.getFechaHora());
         assertEquals("Chequeo general", cita.getMotivo());
         assertEquals(EstadoCita.CANCELADA, cita.getEstado());
+    }
+
+    @Test
+    @DisplayName("CIT-002: Rechazar la creación de una cita sin identificador de paciente")
+    void shouldRejectAppointmentWithoutPatient() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new CitaMedica(
+                        null,
+                        "DOC-001",
+                        "ESP-001",
+                        LocalDateTime.of(2026, 12, 1, 10, 30),
+                        "Consulta de control",
+                        EstadoCita.PROGRAMADA
+                )
+        );
+    }
+
+    @Test
+    @DisplayName("CIT-003: Rechazar la creación de una cita sin identificador de doctor")
+    void shouldRejectAppointmentWithoutDoctor() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new CitaMedica(
+                        "PAC-001",
+                        null,
+                        "ESP-001",
+                        LocalDateTime.of(2026, 12, 1, 10, 30),
+                        "Consulta de control",
+                        EstadoCita.PROGRAMADA
+                )
+        );
+    }
+
+    @Test
+    @DisplayName("CIT-004: Rechazar la creación de una cita sin identificador de especialidad")
+    void shouldRejectAppointmentWithoutSpecialty() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new CitaMedica(
+                        "PAC-001",
+                        "DOC-001",
+                        null,
+                        LocalDateTime.of(2026, 12, 1, 10, 30),
+                        "Consulta de control",
+                        EstadoCita.PROGRAMADA
+                )
+        );
+    }
+
+    @Test
+    @DisplayName("CIT-005: Rechazar la creación de una cita sin fecha y hora")
+    void shouldRejectAppointmentWithoutDateTime() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new CitaMedica(
+                        "PAC-001",
+                        "DOC-001",
+                        "ESP-001",
+                        null,
+                        "Consulta de control",
+                        EstadoCita.PROGRAMADA
+                )
+        );
     }
 }
