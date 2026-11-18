@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class EspecialidadTest {
 
@@ -31,5 +32,14 @@ class EspecialidadTest {
 
         assertEquals("Pediatría", especialidad.getNombre());
         assertEquals("Atención médica infantil", especialidad.getDescripcion());
+    }
+
+    @Test
+    @DisplayName("ESP-002: Rechazar la creación de una especialidad sin nombre")
+    void shouldRejectSpecialtyWithoutName() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Especialidad(null, "Especialidad sin nombre")
+        );
     }
 }
