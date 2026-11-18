@@ -52,11 +52,16 @@ public class CitaMedica {
     }
 
     private static void requireValidFormat(String value) {
+        LocalDateTime fecha;
         try {
-            LocalDateTime.parse(value, FORMATO_FECHA_HORA);
+            fecha = LocalDateTime.parse(value, FORMATO_FECHA_HORA);
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException(
                     "La fecha debe tener el formato yyyy-MM-dd HH:mm");
+        }
+        if (fecha.isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException(
+                    "No se pueden agendar citas en fechas pasadas");
         }
     }
 
