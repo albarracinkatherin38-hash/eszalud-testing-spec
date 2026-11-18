@@ -9,14 +9,14 @@ public class Especialidad {
     private final String descripcion;
 
     public Especialidad(String nombre, String descripcion) {
-        requireNotNull(nombre, "El nombre es obligatorio");
+        requireText(nombre, "El nombre es obligatorio");
 
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
 
-    private static void requireNotNull(String value, String message) {
-        if (value == null) {
+    private static void requireText(String value, String message) {
+        if (value == null || value.isBlank()) {
             throw new IllegalArgumentException(message);
         }
     }
