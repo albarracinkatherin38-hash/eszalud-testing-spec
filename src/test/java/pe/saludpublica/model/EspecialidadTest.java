@@ -42,4 +42,22 @@ class EspecialidadTest {
                 () -> new Especialidad(null, "Especialidad sin nombre")
         );
     }
+
+    @Test
+    @DisplayName("ESP-004: Rechazar un nombre vacío")
+    void shouldRejectSpecialtyWithEmptyName() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Especialidad("", "Especialidad sin nombre")
+        );
+    }
+
+    @Test
+    @DisplayName("ESP-005: Rechazar un nombre compuesto solo por espacios")
+    void shouldRejectSpecialtyWithBlankName() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Especialidad("   ", "Especialidad sin nombre")
+        );
+    }
 }
