@@ -9,12 +9,16 @@ public class Especialidad {
     private final String descripcion;
 
     public Especialidad(String nombre, String descripcion) {
-        if (nombre == null) {
-            throw new IllegalArgumentException("El nombre es obligatorio");
-        }
+        requireNotNull(nombre, "El nombre es obligatorio");
 
         this.nombre = nombre;
         this.descripcion = descripcion;
+    }
+
+    private static void requireNotNull(String value, String message) {
+        if (value == null) {
+            throw new IllegalArgumentException(message);
+        }
     }
 
     public String getNombre() {
