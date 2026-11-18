@@ -72,4 +72,40 @@ class PacienteTest {
                 () -> new Paciente("12345678", "Ana", null, "987654321", "ana@mail.com")
         );
     }
+
+    @Test
+    @DisplayName("PAC-006: Rechazar un documento vacío")
+    void shouldRejectPatientWithEmptyDocument() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Paciente("", "Ana", "Pérez", "987654321", "ana@mail.com")
+        );
+    }
+
+    @Test
+    @DisplayName("PAC-007: Rechazar un documento compuesto solo por espacios")
+    void shouldRejectPatientWithBlankDocument() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Paciente("   ", "Ana", "Pérez", "987654321", "ana@mail.com")
+        );
+    }
+
+    @Test
+    @DisplayName("PAC-008: Rechazar nombres vacíos")
+    void shouldRejectPatientWithEmptyNames() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Paciente("12345678", "", "Pérez", "987654321", "ana@mail.com")
+        );
+    }
+
+    @Test
+    @DisplayName("PAC-009: Rechazar apellidos vacíos")
+    void shouldRejectPatientWithEmptyLastNames() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Paciente("12345678", "Ana", "", "987654321", "ana@mail.com")
+        );
+    }
 }
