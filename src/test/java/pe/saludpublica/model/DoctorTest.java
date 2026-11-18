@@ -81,4 +81,40 @@ class DoctorTest {
                 () -> new Doctor("44556677", "Carlos", "Ramos", null, "ESP-001")
         );
     }
+
+    @Test
+    @DisplayName("DOC-007: Rechazar un documento vacío")
+    void shouldRejectDoctorWithEmptyDocument() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Doctor("", "Carlos", "Ramos", "CMP-12345", "ESP-001")
+        );
+    }
+
+    @Test
+    @DisplayName("DOC-008: Rechazar nombres vacíos")
+    void shouldRejectDoctorWithEmptyNames() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Doctor("44556677", "", "Ramos", "CMP-12345", "ESP-001")
+        );
+    }
+
+    @Test
+    @DisplayName("DOC-008: Rechazar apellidos vacíos")
+    void shouldRejectDoctorWithEmptyLastNames() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Doctor("44556677", "Carlos", "", "CMP-12345", "ESP-001")
+        );
+    }
+
+    @Test
+    @DisplayName("DOC-009: Rechazar colegiatura vacía")
+    void shouldRejectDoctorWithEmptyLicense() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> new Doctor("44556677", "Carlos", "Ramos", "", "ESP-001")
+        );
+    }
 }
