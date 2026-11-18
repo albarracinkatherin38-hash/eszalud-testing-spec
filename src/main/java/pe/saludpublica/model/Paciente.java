@@ -12,21 +12,21 @@ public class Paciente {
     private final String correo;
 
     public Paciente(String documento, String nombres, String apellidos, String telefono, String correo) {
-        if (documento == null) {
-            throw new IllegalArgumentException("El documento es obligatorio");
-        }
-        if (nombres == null) {
-            throw new IllegalArgumentException("Los nombres son obligatorios");
-        }
-        if (apellidos == null) {
-            throw new IllegalArgumentException("Los apellidos son obligatorios");
-        }
+        requireNotNull(documento, "El documento es obligatorio");
+        requireNotNull(nombres, "Los nombres son obligatorios");
+        requireNotNull(apellidos, "Los apellidos son obligatorios");
 
         this.documento = documento;
         this.nombres = nombres;
         this.apellidos = apellidos;
         this.telefono = telefono;
         this.correo = correo;
+    }
+
+    private static void requireNotNull(String value, String message) {
+        if (value == null) {
+            throw new IllegalArgumentException(message);
+        }
     }
 
     public String getDocumento() {
